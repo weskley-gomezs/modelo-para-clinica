@@ -5,26 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clínica</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
         }
 
         :root {
             --rosa-principal: #e91e63;
             --rosa-claro: #f8bbd9;
             --rosa-hover: #ad1457;
-            --rosa-escuro: #c2185b; /* Cor mais escura para os submenus */
+            --header-color: #d29580; /* Nova cor do header */
+            --submenu-color: #a66a6b; /* Nova cor dos submenus */
+            --header-hover: #c08575; /* Cor mais escura para hover */
             --azul-escuro: #2c3e50;
             --cinza-claro: #f5f5f5;
             --cinza-escuro: #424242;
             --branco: #ffffff;
             --rosa-gradiente: linear-gradient(135deg, #fce4ec 0%, #f8bbd9 100%);
-            --sombra-suave: 0 10px 30px rgba(233, 30, 99, 0.15);
-            --sombra-media: 0 15px 40px rgba(233, 30, 99, 0.2);
+            --sombra-suave: 0 10px 30px rgba(210, 149, 128, 0.15);
+            --sombra-media: 0 15px 40px rgba(210, 149, 128, 0.2);
         }
 
         html {
@@ -36,14 +41,15 @@
             color: var(--cinza-escuro);
             line-height: 1.6;
             overflow-x: hidden;
+            font-family: 'Montserrat', sans-serif;
         }
 
-        /* Header Modernizado */
+        /* Header Modernizado - NOVA COR */
         #header {
-            background-color: #f7e9e6; 
+            background-color: var(--header-color); /* Cor #d29580 */
             max-width: 1300px; 
             margin: 20px auto;
-            padding: 15px 30px; 
+            padding: 10px 25px; /* Padding reduzido */
             border-radius: 10px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.1);
             position: fixed;
@@ -66,18 +72,19 @@
         .logo {
             display: flex;
             align-items: center;
-            font-size: 1.5em;
-            font-weight: 300;
-            color: #4a2a2a;
+            font-size: 1.3em; /* Tamanho reduzido */
+            font-weight: 600;
+            color: var(--branco);
+            font-family: 'Montserrat', sans-serif;
         }
 
         .logo i {
-            color: #9c6e6e;
-            font-size: 1.8em;
-            margin-right: 8px;
+            color: var(--branco);
+            font-size: 1.5em; /* Tamanho reduzido */
+            margin-right: 6px;
         }
 
-        /* Navegação (Menu) - CORREÇÕES APLICADAS */
+        /* Navegação (Menu) - FONTE REDUZIDA */
         nav {
             flex: 1;
             display: flex;
@@ -89,29 +96,44 @@
             display: flex;
             flex-wrap: nowrap;
             justify-content: center;
-            gap: 0;
+            gap: 2px; /* Espaço reduzido entre itens */
         }
 
         nav ul li {
             position: relative; 
         }
 
-        /* Itens do menu - EFEITO DA LINHA BRANCA */
+        /* Itens do menu - FONTE MENOR */
         nav ul li a {
             text-transform: uppercase;
             text-decoration: none;
-            color: #4a2a2a;
-            font-family: Arial, sans-serif;
-            font-size: 0.9em;
-            font-weight: bold;
-            padding: 15px 20px;
-            display: block;
+            color: var(--branco);
+            font-family: "Oswald", sans-serif;
+            font-size: 1em; /* Fonte reduzida */
+            font-weight: 600;
+            letter-spacing: 0.8px; /* Espaçamento reduzido */
+            padding: 12px 15px; /* Padding reduzido */
+            display: flex;
+            align-items: center;
             transition: all 0.3s ease;
             position: relative;
+            white-space: nowrap; /* Impede quebra de linha */
+        }
+
+        /* Seta para baixo nos menus com submenu */
+        .has-submenu > a::after {
+            content: '▾';
+            margin-left: 6px;
+            font-size: 0.8em;
+            transition: transform 0.3s ease;
+        }
+
+        .has-submenu:hover > a::after {
+            transform: rotate(180deg);
         }
 
         /* Linha branca suave abaixo do menu ao passar o mouse */
-        nav ul li a::after {
+        nav ul li a::before {
             content: '';
             position: absolute;
             bottom: 0;
@@ -123,32 +145,32 @@
             transform: translateX(-50%);
         }
 
-        nav ul li a:hover::after {
-            width: 80%; /* A linha aparece com 80% da largura do item */
+        nav ul li a:hover::before {
+            width: 70%;
         }
 
-        /* Estilo do item ATIVO e ao passar o mouse */
-        nav ul li a:hover,
-        nav ul li a.active {
-            color: #c95d73;
+        /* Efeito de fundo ao passar o mouse */
+        nav ul li a:hover {
+            background-color: var(--header-hover);
+            border-radius: 5px;
         }
 
-        /* Submenu flutuante - CORREÇÕES APLICADAS */
+        /* Submenu flutuante - NOVA COR */
         .submenu {
             list-style: none;
             padding: 0;
             margin: 0;
-            display: none; /* Inicialmente escondido */
+            display: none;
             position: absolute;
             top: 100%;
             left: 0;
             min-width: 200px;
-            background-color: var(--rosa-escuro); /* Background rosa mais escuro */
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background-color: var(--submenu-color); /* Cor #a66a6b */
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
             z-index: 1000;
             border-radius: 0 0 8px 8px;
             overflow: hidden;
-            animation: slideDown 0.3s ease-out; /* Animação de baixo para cima */
+            animation: slideDown 0.3s ease-out;
         }
 
         @keyframes slideDown {
@@ -173,24 +195,27 @@
         }
 
         .submenu li a {
-            padding: 12px 15px;
+            padding: 10px 15px; /* Padding reduzido */
             white-space: nowrap;
             display: block;
-            color: var(--branco); /* Letras brancas */
+            color: var(--branco);
             text-transform: none; 
-            font-weight: normal;
+            font-weight: 500;
             transition: all 0.3s ease;
-            font-size: 0.85em;
+            font-size: 0.75em; /* Fonte reduzida */
+            letter-spacing: 0.5px;
+            font-family: 'Montserrat', sans-serif;
         }
 
+        .submenu li a::before,
         .submenu li a::after {
-            display: none; /* Remove a linha branca dos subitens */
+            display: none;
         }
 
         .submenu li a:hover {
-            background-color: rgba(255, 255, 255, 0.1); /* Efeito sutil ao passar o mouse */
+            background-color: rgba(255, 255, 255, 0.1);
             color: var(--branco);
-            padding-left: 20px; /* Pequeno deslocamento para efeito */
+            padding-left: 20px;
         }
 
         /* Ação: Mostra o submenu ao passar o mouse */
@@ -203,16 +228,18 @@
             display: none;
         }
 
-        /* Restante do CSS permanece igual */
+        /* Banner ajustado para compensar o header fixo */
         .banner-container {
             position: relative;
             height: 100vh;
             overflow: hidden;
-            background: var(--rosa-gradiente);
             display: flex;
             align-items: center;
             padding: 0 10%;
+            margin-top: 0;
         }
+
+        /* Restante do CSS permanece similar... */
 
         .banner-content {
             max-width: 600px;
@@ -237,6 +264,7 @@
             margin-bottom: 2rem;
             font-weight: 800;
             line-height: 1.2;
+            font-family: 'Montserrat', sans-serif;
         }
 
         .banner-content ul {
@@ -253,6 +281,7 @@
             font-weight: 500;
             opacity: 0;
             animation: fadeInRight 0.8s ease forwards;
+            font-family: 'Montserrat', sans-serif;
         }
 
         .banner-content ul li:nth-child(1) { animation-delay: 0.5s; }
@@ -302,32 +331,18 @@
             overflow: hidden;
         }
 
-        .banner-visual:before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 Q50,30 100,0 L100,100 Q50,70 0,100 Z" fill="rgba(255,255,255,0.2)"/></svg>');
-            background-size: cover;
+        /* Ajuste para as seções não ficarem atrás do header */
+        .section-animate {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+            scroll-margin-top: 100px;
         }
 
-        .banner-visual i {
-            font-size: 10rem;
-            color: rgba(255, 255, 255, 0.8);
-            z-index: 1;
+        .section-animate.animated {
+            opacity: 1;
+            transform: translateY(0);
         }
-
-        /* Outubro Rosa Banner */
-        .outubro-rosa {
-            background: linear-gradient(135deg, var(--rosa-principal) 0%, #c2185b 100%);
-            color: var(--branco);
-            padding: 5rem 2rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* ... (restante do CSS permanece igual) ... */
 
         /* Responsividade */
         @media (max-width: 1200px) {
@@ -345,6 +360,11 @@
             
             .banner-visual i {
                 font-size: 8rem;
+            }
+            
+            nav ul li a {
+                font-size: 0.7em; /* Fonte ainda menor em telas menores */
+                padding: 10px 12px;
             }
         }
 
@@ -382,15 +402,14 @@
             nav ul {
                 flex-direction: column;
                 position: fixed;
-                top: 80px;
+                top: 70px;
                 right: -100%;
                 width: 250px;
-                height: calc(100vh - 80px);
-                background: rgba(255, 255, 255, 0.95);
-                backdrop-filter: blur(10px);
+                height: calc(100vh - 70px);
+                background: var(--header-color);
                 transition: right 0.4s ease;
                 box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-                padding: 2rem;
+                padding: 1.5rem;
             }
             
             nav ul.active {
@@ -398,20 +417,31 @@
             }
             
             nav ul li {
-                margin: 1rem 0;
+                margin: 0.3rem 0;
             }
             
             .menu-toggle {
                 display: block;
+                color: var(--branco);
+                font-size: 1.3rem;
+                background: none;
+                border: none;
+                cursor: pointer;
             }
 
             /* Ajustes para mobile */
             .submenu {
                 position: static;
                 display: none;
-                background-color: rgba(194, 24, 91, 0.9);
-                margin-top: 10px;
+                background-color: var(--submenu-color);
+                margin-top: 5px;
                 border-radius: 5px;
+                animation: none;
+            }
+
+            .has-submenu > a::after {
+                content: '▸';
+                margin-left: auto;
             }
 
             .has-submenu:hover .submenu,
@@ -425,18 +455,119 @@
             display: none;
         }
 
-        /* Banner Carousel Modernizado - REMOVER MARGIN TOP */
-        .banner-container {
+        /* Banner Carousel Modernizado - CORRIGIDO */
+        .banner-carousel {
             position: relative;
             height: 100vh;
             overflow: hidden;
+            margin-top: 0;
             background: var(--rosa-gradiente);
-            display: flex;
-            align-items: center;
-            padding: 0 10%;
         }
 
-        /* ... (restante do CSS permanece igual) ... */
+        .carousel-slides {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            transition: transform 0.8s ease-in-out;
+        }
+
+        .carousel-slide {
+            position: relative;
+            min-width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: transform 0.8s ease-in-out;
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+        }
+
+        /* Slides com cores de fundo temporárias - você substituirá por imagens */
+        .slide-1 {
+            background-image: url(img/1.png);
+        }
+
+        .slide-2 {
+            background-image: url(img/2.png);
+        }
+
+        .slide-3 {
+            background-image: url(img/3.png);
+        }
+
+        /* Indicadores de posição (dots) */
+        .carousel-controls {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-dot.active {
+            background-color: var(--branco);
+            transform: scale(1.2);
+        }
+
+        /* Botões de navegação (setas) */
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 10;
+        }
+
+        .carousel-nav button {
+            background: rgba(255, 255, 255, 0.3);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--branco);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .carousel-nav button:hover {
+            background: rgba(255, 255, 255, 0.5);
+            transform: scale(1.1);
+        }
+
+        /* Texto indicativo temporário - remova quando adicionar imagens */
+        .slide-text {
+            color: var(--azul-escuro);
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            font-family: 'Montserrat', sans-serif;
+        }
 
         /* Responsividade Melhorada */
         @media (max-width: 1200px) {
@@ -513,24 +644,6 @@
             .menu-toggle {
                 display: block;
             }
-        }
-
-        /* Banner Carousel Modernizado - REMOVER MARGIN TOP */
-        .banner-container {
-        /* REMOVER: margin-top: 80px; */
-        position: relative;
-        height: 100vh; /* Alterado para 100vh para tomar toda a altura da tela */
-        overflow: hidden;
-        background: var(--rosa-gradiente);
-        display: flex;
-        align-items: center;
-        padding: 0 10%;
-}
-
-        .banner-content {
-            max-width: 600px;
-            z-index: 2;
-            animation: fadeInUp 1s ease;
         }
 
         @keyframes fadeInUp {
@@ -737,7 +850,7 @@
             animation: none;
         }
 
-        /* Sobre a Clínica - Melhorado */
+       /* Sobre a Clínica - LAYOUT REFINADO */
         .sobre-clinica {
             padding: 6rem 2rem;
             max-width: 1200px;
@@ -746,208 +859,341 @@
         }
 
         .sobre-clinica:before {
-            content: '';
-            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: var(--rosa-gradiente);
+            background: var(--branco);
             opacity: 0.1;
             z-index: -1;
             border-radius: 20px;
         }
 
-        .sobre-clinica h2 {
-            font-size: 3rem;
-            color: var(--azul-escuro);
-            margin-bottom: 1rem;
-            text-align: center;
-            font-weight: 800;
+        .sobre-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
         }
 
-        .sobre-clinica h3 {
-            font-size: 1.8rem;
+        .sobre-titulo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 10rem 2rem 6rem; /* Aumentei o top para 10rem e mantive o bottom em 6rem */
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            height: fit-content;
+        }
+
+        .logo-titulo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo-titulo .logo-icon {
+            font-size: 4rem;
             color: var(--rosa-principal);
-            margin-bottom: 3rem;
-            text-align: center;
-            font-weight: 500;
-        }
-
-        .sobre-clinica h4 {
-            font-size: 1.6rem;
-            color: var(--azul-escuro);
-            margin: 2.5rem 0 1.5rem;
-            border-left: 5px solid var(--rosa-principal);
-            padding-left: 1.5rem;
-            font-weight: 600;
-            background: rgba(255, 255, 255, 0.7);
-            padding: 1rem 1.5rem;
-            border-radius: 0 10px 10px 0;
-            box-shadow: var(--sombra-suave);
-        }
-
-        .sobre-clinica p {
             margin-bottom: 1.5rem;
-            font-size: 1.2rem;
-            line-height: 1.8;
-            text-align: justify;
-            background: rgba(255, 255, 255, 0.7);
-            padding: 1.5rem;
-            border-radius: 10px;
-            box-shadow: var(--sombra-suave);
-            transition: transform 0.3s ease;
+            background: rgba(233, 30, 99, 0.1);
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .sobre-clinica p:hover {
-            transform: translateY(-5px);
+        .sobre-titulo h2 {
+            font-size: 2.8rem;
+            color: #9b6666;
+            margin-bottom: 0.8rem;
+            font-weight: 800;
+            text-align: center;
+            line-height: 1.2;
+            font-family: "Playfair Display", serif;
         }
 
-        /* Especialidades - Melhorado */
-        .especialidades {
-            padding: 6rem 2rem;
-            background-color: var(--cinza-claro);
-            position: relative;
-            overflow: hidden;
+        .sobre-titulo h3 {
+            font-size: 2.8rem;
+            color: #9b6666;
+            margin-bottom: 0.8rem;
+            font-weight: 800;
+            text-align: center;
+            line-height: 1.2;
+            font-family: "Playfair Display", serif;
         }
 
-        .especialidades:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
+        .referencia-badge {
+            color: var(--rosa-principal);
+            font-weight: bold;
+            font-size: 0.75rem;
+            font-style: italic;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-align: center;
             width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 Q30,50 0,100 L100,100 Q70,50 100,0 Z" fill="rgba(233, 30, 99, 0.05)"/></svg>');
-            background-size: cover;
+            max-width: 300px;
+            font-family: "Playfair Display", serif;
+        }
+
+        .sobre-conteudo {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 3rem;
+            border-radius: 15px;
+            font-family: 'Georgia', serif;
+        }
+
+        .sobre-conteudo p {
+            margin-bottom: 1.8rem;
+            line-height: 1.8;
+            font-size: 1.15rem;
+            text-align: justify;
+            color: #9b6666;
+        }
+
+        .sobre-conteudo .destaque {
+            font-weight: bold;
+            color: var(--rosa-principal);
+            font-size: 1.3rem;
+            margin-top: 2rem;
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(233, 30, 99, 0.08);
+            font-style: italic;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .sobre-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .sobre-titulo h2 {
+                font-size: 2.3rem;
+            }
+            
+            .sobre-titulo h3 {
+                font-size: 1.4rem;
+            }
+            
+            .logo-titulo .logo-icon {
+                font-size: 3rem;
+                width: 80px;
+                height: 80px;
+            }
+        }
+
+        
+         /* Estilo específico para o texto da história */
+        .historia-clinica {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: var(--sombra-media);
+            margin-top: 2rem;
+        }
+
+        .historia-clinica h2 {
+            color: var(--rosa-principal);
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            text-align: left;
+            border-bottom: 3px solid var(--rosa-principal);
+            padding-bottom: 0.5rem;
+        }
+
+        .historia-clinica p {
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+            font-size: 1.1rem;
+            text-align: justify;
+            background: none;
+            padding: 0;
+            box-shadow: none;
+            transition: none;
+        }
+
+        .historia-clinica p:hover {
+            transform: none;
+        }
+
+        .historia-clinica .destaque {
+            font-weight: bold;
+            color: var(--rosa-principal);
+            font-size: 1.2rem;
+            margin-top: 1.5rem;
+        }
+
+         /* Seção Especialidades - CORRIGIDA */
+        .especialidades {
+            max-width: 1920px;
+            margin: 0 auto;
         }
 
         .especialidades h2 {
             text-align: center;
-            font-size: 3rem;
+            font-size: 2.5rem;
             color: var(--azul-escuro);
             margin-bottom: 3rem;
             font-weight: 800;
-            position: relative;
         }
 
         .especialidades-container {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
+            gap: 2px;
+            width: 100%;
         }
 
         .especialidade-card {
-            background: var(--branco);
-            border-radius: 15px;
-            padding: 2.5rem 2rem;
-            box-shadow: var(--sombra-suave);
-            transition: all 0.4s ease;
-            text-align: center;
-            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 800px;
+            overflow: hidden;
+            position: relative;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
+            justify-content: flex-end;
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
         }
 
-        .especialidade-card:before {
+        .especialidade-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .especialidade-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 5px;
-            background: var(--rosa-principal);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.4s ease;
-            z-index: -1;
+            height: 100%;
+            z-index: 2;
         }
 
-        .especialidade-card:hover:before {
-            transform: scaleX(1);
-        }
-
-        .especialidade-card:hover {
-            transform: translateY(-15px) scale(1.03);
-            box-shadow: var(--sombra-media);
+        .especialidade-content {
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        height: 100%;
+        position: relative;
+        z-index: 3;
         }
 
         .especialidade-card h3 {
-            color: var(--azul-escuro);
-            margin-bottom: 1.5rem;
+            color: var(--branco);
             font-size: 1.8rem;
+            margin-bottom: 1rem;
             font-weight: 700;
-            position: relative;
-        }
-
-        .especialidade-card h3:after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 50px;
-            height: 3px;
-            background: var(--rosa-principal);
-            border-radius: 3px;
+            line-height: 1.2;
         }
 
         .especialidade-card p {
-            margin-bottom: 2rem;
-            color: var(--cinza-escuro);
-            font-size: 1.1rem;
-            line-height: 1.6;
+            color: var(--branco);
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            line-height: 1.5;
         }
 
         .especialidade-card ul {
             list-style: none;
-            text-align: left;
-            margin-top: auto;
+            margin-bottom: 1.5rem;
         }
 
         .especialidade-card ul li {
-            margin-bottom: 0.8rem;
-            padding-left: 1.5rem;
+            padding: 0.5rem 0;
+            font-size: 0.95rem;
             position: relative;
-            font-size: 1.1rem;
-            transition: transform 0.3s ease;
-        }
-
-        .especialidade-card ul li:hover {
-            transform: translateX(5px);
+            padding-left: 1.2rem;
+            color: #e3f2fd;
         }
 
         .especialidade-card ul li:before {
-            content: "▸";
-            color: var(--rosa-principal);
+            content: "•";
+            color: var(--branco);
             position: absolute;
             left: 0;
             font-size: 1.2rem;
-            font-weight: bold;
-            transition: transform 0.3s ease;
+        }
+        /* Estilo para os links da lista */
+        .especialidade-card ul li a {
+        color: #e3f2fd;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        display: block;
+        padding: 0.3rem 0;
+        }
+        .especialidade-card ul li a:hover {
+        color: var(--branco);
+        padding-left: 5px;
+        }
+        
+
+        /* Imagens de fundo para cada card - substitua pelas suas imagens */
+        .card1 {
+            background-image: url('img/modelo\ especialidades.jpg'); /* Substitua pela imagem real */
+            background-color: #f8bbd9; /* Cor de fallback */
         }
 
-        .especialidade-card ul li:hover:before {
-            transform: translateX(3px);
+        .card2 {
+            background-image: url('img/modelo\ especialidades.jpg'); /* Substitua pela imagem real */
+            background-color: #f8bbd9; /* Cor de fallback */
         }
 
+        .card3 {
+            background-image: url('img/modelo\ especialidades.jpg'); /* Substitua pela imagem real */
+            background-color: #f8bbd9; /* Cor de fallback */
+        }
+
+        .card4 {
+            background-image: url('img/modelo\ especialidades.jpg'); /* Substitua pela imagem real */
+            background-color: #f8bbd9; /* Cor de fallback */
+        }
+
+        /* Responsividade para os cards */
+        @media (max-width: 1200px) {
+            .especialidades-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .especialidades-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .especialidades h2 {
+                font-size: 2rem;
+            }
+        }
         /* Atendimento Prime - Melhorado */
         .atendimento-prime {
-            padding: 6rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-            position: relative;
+        padding: 8rem 6rem;
+        max-width: 1920px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+        position: relative;
+        background-image: url(img/fundo.jpg);
+        /* Adicione estas propriedades para corrigir o comportamento da imagem */
+        background-size: cover; /* Faz a imagem cobrir toda a área */
+        background-position: center; /* Centraliza a imagem */
+        background-repeat: no-repeat; /* Evita repetição */
+        background-attachment: fixed; /* Mantém a imagem fixa durante o scroll */
         }
 
         .atendimento-prime:before {
@@ -1006,84 +1252,82 @@
             transform: translateY(-5px);
         }
 
-        .atendimento-image {
-            background: var(--rosa-gradiente);
-            height: 500px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--branco);
-            font-size: 1.5rem;
-            box-shadow: var(--sombra-media);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .atendimento-image:before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 Q50,30 100,0 L100,100 Q50,70 0,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
-            background-size: cover;
-        }
-
-        .atendimento-image i {
-            font-size: 8rem;
-            z-index: 1;
-            opacity: 0.8;
-        }
-
-        /* Procedimentos - Melhorado */
+        /* Seção Procedimentos - CORRIGIDA */
+        /* Seção Procedimentos - CORRIGIDA */
         .procedimentos {
-            padding: 6rem 2rem;
-            background-color: var(--cinza-claro);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .procedimentos:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 Q70,30 100,0 L100,100 Q30,70 0,100 Z" fill="rgba(233, 30, 99, 0.05)"/></svg>');
+            max-width: 1920px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            background-image: url(img/fundo\ 2.jpg);
             background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
         }
-
         .procedimentos h2 {
             text-align: center;
-            font-size: 3rem;
+            font-size: 2.5rem;
             color: var(--azul-escuro);
             margin-bottom: 3rem;
             font-weight: 800;
-            position: relative;
         }
 
+        /* Container dos botões com scroll horizontal - CORRIGIDO */
+        .procedimentos-menu-container {
+            position: relative;
+            width: 100%;
+            margin-bottom: 3rem;
+            padding: 0 40px; /* Espaço para as setas */
+        }
+
+        /* Container dos botões - CORRIGIDO */
         .procedimentos-menu {
             display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-bottom: 3rem;
+            gap: 15px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding: 15px 10px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--rosa-principal) var(--cinza-claro);
         }
 
+        .procedimentos-menu::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .procedimentos-menu::-webkit-scrollbar-track {
+            background: var(--cinza-claro);
+            border-radius: 10px;
+        }
+
+        .procedimentos-menu::-webkit-scrollbar-thumb {
+            background: var(--rosa-principal);
+            border-radius: 10px;
+        }
+
+        /* Estilo dos botões quadrados - CORRIGIDO */
         .procedimento-btn {
             background: var(--branco);
             border: 2px solid var(--rosa-principal);
             color: var(--rosa-principal);
-            padding: 1rem 2rem;
-            border-radius: 30px;
+            padding: 20px 15px;
             cursor: pointer;
             font-weight: bold;
             transition: all 0.3s ease;
-            font-size: 1.1rem;
+            font-size: 1rem;
             position: relative;
             overflow: hidden;
             z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 120px;
+            min-width: 140px;
+            border-radius: 8px;
+            text-align: center;
+            flex-shrink: 0;
+            flex-grow: 0;
         }
 
         .procedimento-btn:before {
@@ -1106,48 +1350,73 @@
         .procedimento-btn:hover,
         .procedimento-btn.active {
             color: var(--branco);
-        }
-
-        .procedimento-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            align-items: center;
-        }
-
-        .procedimento-info h3 {
-            font-size: 2.2rem;
-            color: var(--azul-escuro);
-            margin-bottom: 1.5rem;
-            font-weight: 800;
-        }
-
-        .procedimento-info p {
-            margin-bottom: 2rem;
-            line-height: 1.7;
-            font-size: 1.1rem;
-            background: rgba(255, 255, 255, 0.7);
-            padding: 1.5rem;
-            border-radius: 10px;
-            box-shadow: var(--sombra-suave);
-        }
-
-        .procedimento-image {
-            background: var(--rosa-gradiente);
-            height: 350px;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--branco);
+            transform: translateY(-5px);
             box-shadow: var(--sombra-media);
+        }
+
+        .procedimento-btn i {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .procedimento-btn span {
+            font-size: 0.9rem;
+            line-height: 1.2;
+        }
+
+        /* Container dos cards */
+        .procedimentos-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        /* Container dos cards - CORRIGIDO */
+        .procedimentos-cards {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        /* Estilo dos cards - CORRIGIDO COM MEIA MOLDUA CIRCULAR E MAIS LARGOS */
+        .procedimento-card {
+            background: var(--branco);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--sombra-suave);
+            transition: all 0.4s ease;
+            display: none;
+            max-width: 1400px; /* Aumentei a largura máxima */
+            position: relative;
+        }
+
+        .procedimento-card.active {
+            display: flex;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .procedimento-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--sombra-media);
+        }
+
+
+        .card-header {
+            background: var(--rosa-gradiente);
+            padding: 2rem;
+            text-align: center;
             position: relative;
             overflow: hidden;
         }
 
-        .procedimento-image:before {
+        .card-header:before {
             content: '';
             position: absolute;
             width: 100%;
@@ -1156,10 +1425,320 @@
             background-size: cover;
         }
 
-        .procedimento-image i {
-            font-size: 6rem;
+        .card-header i {
+            font-size: 4rem;
+            color: var(--branco);
             z-index: 1;
-            opacity: 0.8;
+            position: relative;
+            opacity: 0.9;
+        }
+
+        .card-content {
+            padding: 2rem;
+        }
+
+        .card-content h3 {
+            font-size: 1.8rem;
+            color: var(--azul-escuro);
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .card-content p {
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        .card-features {
+            margin-bottom: 2rem;
+        }
+
+        .card-features h4 {
+            font-size: 1.2rem;
+            color: var(--rosa-principal);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .card-features ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .card-features li {
+            padding: 0.5rem 0;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .card-features li:before {
+            content: "✓";
+            color: var(--rosa-principal);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .btn-saiba-mais {
+            display: inline-block;
+            background-color: var(--rosa-principal);
+            color: var(--branco);
+            padding: 0.8rem 1.8rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(233, 30, 99, 0.3);
+        }
+
+        .btn-saiba-mais:hover {
+            background-color: var(--rosa-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(233, 30, 99, 0.4);
+        }
+        /* Botões de navegação do scroll - CORRIGIDO */
+        .scroll-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            pointer-events: none;
+            z-index: 2;
+            left: 0;
+            right: 0;
+        }
+
+        .scroll-btn {
+            background: var(--rosa-principal);
+            color: var(--branco);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            pointer-events: all;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+
+        .scroll-btn:hover {
+            background: var(--rosa-hover);
+            transform: scale(1.1);
+        }
+
+        .scroll-btn.prev {
+            margin-left: -20px;
+        }
+
+        .scroll-btn.next {
+            margin-right: -20px;
+        }
+        /* Estilo dos cards - CORRIGIDO COM MEIA MOLDUA CIRCULAR */
+        .procedimento-card {
+            background: var(--branco);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--sombra-suave);
+            transition: all 0.4s ease;
+            display: none;
+            max-width: 1500px;
+            width: 100%;
+            position: relative;
+        }
+
+        .procedimento-card.active {
+            display: flex;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .procedimento-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--sombra-media);
+        }
+
+        /* Meia moldura circular - NOVO DESIGN */
+        .card-visual {
+            position: relative;
+            width: 40%;
+            background: var(--rosa-gradiente);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            min-height: 350px;
+        }
+
+        .card-visual:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -50px;
+            width: 100px;
+            height: 100%;
+            background: var(--branco);
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .card-visual i {
+            font-size: 5rem;
+            color: var(--branco);
+            z-index: 2;
+            position: relative;
+            opacity: 0.9;
+        }
+
+        .card-content {
+            padding: 2.5rem; /* Aumentei o padding para mais espaço */
+            width: 60%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card-content h3 {
+            font-size: 2rem; /* Aumentei o tamanho da fonte */
+            color: var(--azul-escuro);
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+        }
+
+        .card-content p {
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+            font-size: 1.1rem; /* Aumentei o tamanho da fonte */
+        }
+
+        .card-features {
+            margin-bottom: 2rem;
+        }
+
+        .card-features h4 {
+            font-size: 1.3rem; /* Aumentei o tamanho da fonte */
+            color: var(--rosa-principal);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .card-features ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .card-features li {
+            padding: 0.5rem 0;
+            position: relative;
+            padding-left: 1.5rem;
+            font-size: 1rem; /* Aumentei o tamanho da fonte */
+        }
+
+        .card-features li:before {
+            content: "✓";
+            color: var(--rosa-principal);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .btn-saiba-mais {
+            display: inline-block;
+            background-color: var(--rosa-principal);
+            color: var(--branco);
+            padding: 1rem 2rem; /* Aumentei o padding */
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem; /* Aumentei o tamanho da fonte */
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(233, 30, 99, 0.3);
+            align-self: flex-start;
+        }
+
+        .btn-saiba-mais:hover {
+            background-color: var(--rosa-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(233, 30, 99, 0.4);
+        }
+
+        /* Responsividade */
+        @media (max-width: 1024px) {
+            .procedimento-card {
+                flex-direction: column;
+                max-width: 800px;
+            }
+            
+            .card-visual, .card-content {
+                width: 100%;
+            }
+            
+            .card-visual {
+                min-height: 200px;
+            }
+            
+            .card-visual:before {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .procedimentos-menu-container {
+                padding: 0 20px;
+            }
+            
+            .scroll-btn {
+                width: 35px;
+                height: 35px;
+            }
+            
+            .scroll-btn.prev {
+                margin-left: -15px;
+            }
+            
+            .scroll-btn.next {
+                margin-right: -15px;
+            }
+            
+            .procedimento-btn {
+                height: 100px;
+                padding: 15px 5px;
+                min-width: 120px;
+            }
+            
+            .procedimento-btn i {
+                font-size: 2rem;
+            }
+            
+            .procedimento-btn span {
+                font-size: 0.8rem;
+            }
+            
+            .procedimentos h2 {
+                font-size: 2rem;
+            }
+            
+            .procedimento-card {
+                width: 100%;
+            }
+            
+            .card-content {
+                padding: 1.5rem;
+            }
+            
+            .card-content h3 {
+                font-size: 1.7rem;
+            }
         }
 
         /* Corpo Clínico - Melhorado */
@@ -1885,6 +2464,7 @@
             .menu-toggle {
                 display: block;
             }
+            
              /* Estilos para o botão do chatbot */
         .chatbot-float {
             position: fixed;
@@ -1925,6 +2505,9 @@
             <i class="fas fa-heartbeat"></i>
             <div>Clínica</div>
         </div>
+        <button class="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </button>
         <nav>
             <ul>
                 <li class="has-submenu">
@@ -1999,74 +2582,116 @@
         </nav>
     </header>
 
-    <!-- Banner Principal -->
-    <section class="banner-container">
-        <div class="banner-content">
-            <h1>Cuidados Integrais para a Saúde da Mulher</h1>
-            <ul>
-                <li>Atendimento Humanizado e Personalizado</li>
-                <li>Tecnologia de Ponta em Todos os Procedimentos</li>
-                <li>Equipe Multidisciplinar Especializada</li>
-            </ul>
+    <!-- Banner Carousel -->
+    <section class="banner-carousel">
+        <div class="carousel-slides">
+            <div class="carousel-slide slide-1 active">
+            </div>
+            <div class="carousel-slide slide-2">
+            </div>
+            <div class="carousel-slide slide-3">
+            </div>
         </div>
-        <div class="banner-visual">
-            <i class="fas fa-female"></i>
+        
+        <div class="carousel-nav">
+            <button class="carousel-prev">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="carousel-next">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+        
+        <div class="carousel-controls">
+            <div class="carousel-dot active" data-slide="0"></div>
+            <div class="carousel-dot" data-slide="1"></div>
+            <div class="carousel-dot" data-slide="2"></div>
         </div>
     </section>
 
     <!-- Outubro Rosa -->
-    <section class="outubro-rosa section-animate">
+
+    <!--<section class="outubro-rosa section-animate">
         <h2>OUTUBRO ROSA</h2>
         <h3>MÊS DE PREVENÇÃO DO CÂNCER DE MAMA</h3>
         <p>Prevenção é um grande gesto de amor e de vida!</p>
         <a href="#" class="btn-saiba-mais">Saiba Mais!</a>
-    </section>
+    </section>-->
 
-    <!-- Sobre a Clínica -->
     <section class="sobre-clinica section-animate" id="sobre">
-        <h2>Clínica da Mulher</h2>
-        <h3>Uma Clínica Completa</h3>
-        <h4>REFERÊNCIA EM GINECOLOGIA</h4>
-        <p>Desde 2002, a Clínica da Mulher é referência na saúde feminina no Distrito Federal. Destacamo-nos em nosso segmento pela excelência nos cuidados especializados em Ginecologia e Mastologia. Priorizamos o acolhimento, proporcionando um ambiente onde as pacientes se sintam seguras.</p>
-        <p>Reunimos consultas, exames, diagnósticos, procedimentos e tratamentos em um único local, promovendo conveniência e eficiência. Além da excelência e acolhimento em cada atendimento, comprometemo-nos com a resolutividade dos principais problemas de ginecologia e mastologia das nossas pacientes.</p>
-        <p><strong>Na Clínica da Mulher, o seu problema é o nosso problema!</strong></p>
+        <div class="sobre-container">
+            <div class="sobre-titulo">
+                <div class="logo-titulo">
+                    <i class="fas fa-heartbeat logo-icon"></i>
+                    <h2>Clínica da Mulher</h2>
+                    <h3>Uma Clínica Completa</h3>
+                </div>
+                <div class="referencia-badge">
+                    Referência em Ginecologia
+                </div>
+            </div>
+            
+            <div class="sobre-conteudo">
+                <p>Desde 2002, a Clínica da Mulher é referência na saúde feminina no Distrito Federal. Destacamo-nos em nosso segmento pela excelência nos cuidados especializados em Ginecologia e Mastologia. Priorizamos o acolhimento, proporcionando um ambiente onde as pacientes se sintam seguras.</p>
+                
+                <p>Reunimos consultas, exames, diagnósticos, procedimentos e tratamentos em um único local, promovendo conveniência e eficiência. Além da excelência e acolhimento em cada atendimento, comprometemo-nos com a resolutividade dos principais problemas de ginecologia e mastologia das nossas pacientes.</p>
+                
+                <p class="destaque">Na Clínica da Mulher, o seu problema é o nosso problema!</p>
+            </div>
+        </div>
     </section>
 
-    <!-- Especialidades -->
-    <section class="especialidades section-animate" id="especialidades">
-        <h2>Nossas Especialidades</h2>
-        <div class="especialidades-container">
-            <div class="especialidade-card">
-                <h3>Ginecologia</h3>
-                <p>Consultas, exames, diagnósticos procedimentos e tratamentos. Tudo o que sua saúde ginecológica precisa em um só lugar.</p>
-                <ul>
-                    <li>Ginecologia Clínica</li>
-                    <li>Ginecologia Cirúrgica</li>
-                </ul>
-            </div>
-            <div class="especialidade-card">
-                <h3>Mastologia</h3>
-                <p>Todo o cuidado com a saúde das mamas em uma abordagem ampla. Consultas, exames, diagnósticos e tratamentos. Previna-se!</p>
-                <ul>
-                    <li>Mastologia Clínica</li>
-                </ul>
-            </div>
-            <div class="especialidade-card">
-                <h3>Estética íntima</h3>
-                <p>Revitalize sua vida sexual! Líbido, emoções, menopausa, reprodução, pós-parto e superação. Redescubra seu bem-estar íntimo.</p>
-                <ul>
-                    <li>Sexologia</li>
-                    <li>Reprodução Humana</li>
-                </ul>
-            </div>
-            <div class="especialidade-card">
-                <h3>Saúde Sexual</h3>
-                <p>Recupere sua confiança e autoestima através da harmonização íntima.</p>
-                <ul>
-                    <li>Ninfoplastia</li>
-                    <li>Radiofrequência</li>
-                    <li>Harmonização Íntima</li>
-                </ul>
+    <!-- Seção Especialidades - CORRIGIDA -->
+    <section class="especialidades">
+        <div class="container">
+            <div class="especialidades-container">
+                <!-- Card 1 -->
+                <div class="especialidade-card card1">
+                    <div class="especialidade-content">
+                        <h3>Ginecologia</h3>
+                        <p>Consultas, exames, diagnósticos procedimentos e tratamentos. Tudo o que sua saúde ginecológica precisa em um só lugar.</p>
+                        <ul>
+                            <li><a href="#">Ginecologia Clínica</a></li>
+                            <li><a href="#">Ginecologia Cirúrgica</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Card 2 -->
+                <div class="especialidade-card card2">
+                    <div class="especialidade-content">
+                        <h3>Mastologia</h3>
+                        <p>Todo o cuidado com a saúde das mamas em uma abordagem ampla. Consultas, exames, diagnósticos e tratamentos. Previna-se!</p>
+                        <ul>
+                            <li><a href="#">Mastologia Clínica</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Card 3 -->
+                <div class="especialidade-card card3">
+                    <div class="especialidade-content">
+                        <h3>Estética Íntima</h3>
+                        <p>Revitalize sua vida sexual! Líbido, emoções, menopausa, reprodução, pós-parto e superação. Redescubra seu bem-estar íntimo.</p>
+                        <ul>
+                            <li><a href="#">Sexologia</a></li>
+                            <li><a href="#">Reprodução Humana</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Card 4 -->
+                <div class="especialidade-card card4">
+                    <div class="especialidade-content">
+                        <h3>Saúde Sexual</h3>
+                        <p>Recupere sua confiança e autoestima através da harmonização íntima.</p>
+                        <ul>
+                            <li><a href="#">Ninfoplastia</a></li>
+                            <li><a href="#">Radiofrequência</a></li>
+                            <li><a href="#">Harmonização Íntima</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -2086,30 +2711,297 @@
             <h4><i class="fas fa-check-circle"></i> Praticidade e Resolutividade</h4>
             <p>Como a maioria dos procedimentos e exames são realizados na própria Clínica, uma das principais vantagens do nosso atendimento Prime é que você não precisará esperar e nem pagar por um centro cirúrgico.</p>
         </div>
-        <div class="atendimento-image">
-            <i class="fas fa-user-md"></i>
-        </div>
     </section>
 
-    <!-- Procedimentos -->
-    <section class="procedimentos section-animate" id="procedimentos">
-        <h2>Procedimentos</h2>
-        <div class="procedimentos-menu">
-            <button class="procedimento-btn active">Video-Histeroscopia</button>
-            <button class="procedimento-btn">Video-Colposcopia</button>
-            <button class="procedimento-btn">DIU Sem Dor</button>
-            <button class="procedimento-btn">Conização (CAF)</button>
-            <button class="procedimento-btn">Mamografia</button>
-        </div>
+     <!-- Seção Procedimentos - CORRIGIDA -->
+    <section class="procedimentos" id="procedimentos">
+        <h2 style="padding-top: 50px; color: #f5f5f5;">Destaques: Exames, Procedimentos e Tratamentos</h2>
         
-        <div class="procedimento-content">
-            <div class="procedimento-info">
-                <h3>Video-Histeroscopia</h3>
-                <p>A histeroscopia por vídeo assistido, também conhecida como video-histeroscopia ou histeroscopia cirúrgica, é um procedimento minimamente invasivo que permite a visualização interna do útero e, ao mesmo tempo, a realização de procedimentos cirúrgicos, se necessário.</p>
-                <a href="#" class="btn-saiba-mais">Saiba Mais →</a>
+        <!-- Menu de botões com scroll horizontal - CORRIGIDO -->
+        <div class="procedimentos-menu-container">
+            <div class="scroll-nav">
+                <button class="scroll-btn prev">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="scroll-btn next">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
             </div>
-            <div class="procedimento-image">
-                <i class="fas fa-procedures"></i>
+            
+            <div class="procedimentos-menu">
+                <button class="procedimento-btn active" data-procedimento="histeroscopia">
+                    <i class="fas fa-video"></i>
+                    <span>Video-Histeroscopia</span>
+                </button>
+                <button class="procedimento-btn" data-procedimento="colposcopia">
+                    <i class="fas fa-microscope"></i>
+                    <span>Video-Colposcopia</span>
+                </button>
+                <button class="procedimento-btn" data-procedimento="diu">
+                    <i class="fas fa-heart"></i>
+                    <span>DIU Sem Dor</span>
+                </button>
+                <button class="procedimento-btn" data-procedimento="conizacao">
+                    <i class="fas fa-cut"></i>
+                    <span>Conização (CAF)</span>
+                </button>
+                <button class="procedimento-btn" data-procedimento="mamografia">
+                    <i class="fas fa-female"></i>
+                    <span>Mamografia</span>
+                </button>
+                <button class="procedimento-btn" data-procedimento="ultrassom">
+                    <i class="fas fa-wave-square"></i>
+                    <span>Ultrassom</span>
+                </button>
+                <button class="procedimento-btn" data-procedimento="ressonancia">
+                    <i class="fas fa-magnet"></i>
+                    <span>Ressonância Magnética</span>
+                </button>
+                <button class="procedimento-btn" data-procedimento="tomografia">
+                    <i class="fas fa-cube"></i>
+                    <span>Tomografia Computadorizada</span>
+                </button>
+                <button class="procedimento-btn" data-procedimento="laboratoriais">
+                    <i class="fas fa-flask"></i>
+                    <span>Exames Laboratoriais</span>
+                </button>
+                <button class="procedimento-btn" data-procedimento="ecg">
+                    <i class="fas fa-heartbeat"></i>
+                    <span>Eletrocardiograma (ECG)</span>
+                </button>
+            </div>
+        </div>
+            
+        <!-- Cards dos procedimentos - TODOS CORRIGIDOS -->
+        <div class="procedimentos-cards">
+            <!-- Card 1 - Video-Histeroscopia -->
+            <div class="procedimento-card active" id="histeroscopia">
+                <div class="card-visual">
+                    <i class="fas fa-video"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Video-Histeroscopia</h3>
+                    <p>A histeroscopia por vídeo assistido, também conhecida como video-histeroscopia ou histeroscopia cirúrgica, é um procedimento minimamente invasivo que permite a visualização interna do útero e, ao mesmo tempo, a realização de procedimentos cirúrgicos, se necessário.</p>
+                    
+                    <div class="card-features">
+                        <h4>Principais Benefícios:</h4>
+                        <ul>
+                            <li>Procedimento minimamente invasivo</li>
+                            <li>Visualização interna do útero em tempo real</li>
+                            <li>Realização de procedimentos cirúrgicos simultâneos</li>
+                            <li>Recuperação mais rápida</li>
+                        </ul>
+                    </div>
+                    
+                    <a href="#" class="btn-saiba-mais">Saiba Mais →</a>
+                </div>
+            </div>
+            
+            <!-- Card 2 - Video-Colposcopia -->
+            <div class="procedimento-card" id="colposcopia">
+                <div class="card-visual">
+                    <i class="fas fa-microscope"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Video-Colposcopia</h3>
+                    <p>A video-colposcopia permite avaliar o colo do útero e detectar lesões precoces, auxiliando na prevenção do câncer cervical.</p>
+                    
+                    <div class="card-features">
+                        <h4>Principais Benefícios:</h4>
+                        <ul>
+                            <li>Detecção precoce de lesões</li>
+                            <li>Prevenção do câncer cervical</li>
+                            <li>Exame rápido e indolor</li>
+                            <li>Resultados precisos</li>
+                        </ul>
+                    </div>
+                    
+                    <a href="#" class="btn-saiba-mais">Saiba Mais →</a>
+                </div>
+            </div>
+            
+            <!-- Card 3 - DIU Sem Dor -->
+            <div class="procedimento-card" id="diu">
+                <div class="card-visual">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <div class="card-content">
+                    <h3>DIU Sem Dor</h3>
+                    <p>Procedimento de colocação de DIU com técnica indolor e rápida, garantindo conforto e segurança para a paciente.</p>
+                    
+                    <div class="card-features">
+                        <h4>Principais Benefícios:</h4>
+                        <ul>
+                            <li>Técnica indolor</li>
+                            <li>Procedimento rápido</li>
+                            <li>Alta eficácia contraceptiva</li>
+                            <li>Duração prolongada</li>
+                        </ul>
+                    </div>
+                    
+                    <a href="#" class="btn-saiba-mais">Saiba Mais →</a>
+                </div>
+            </div>
+            
+            <!-- Card 4 - Conização (CAF) -->
+            <div class="procedimento-card" id="conizacao">
+                <div class="card-visual">
+                    <i class="fas fa-cut"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Conização (CAF)</h3>
+                    <p>A conização remove uma pequena parte do colo do útero para análise ou tratamento de lesões.</p>
+                    
+                    <div class="card-features">
+                        <h4>Principais Benefícios:</h4>
+                        <ul>
+                            <li>Tratamento de lesões pré-cancerosas</li>
+                            <li>Procedimento preciso</li>
+                            <li>Recuperação rápida</li>
+                            <li>Preservação da fertilidade</li>
+                        </ul>
+                    </div>
+                    
+                    <a href="#" class="btn-saiba-mais">Saiba Mais →</a>
+                </div>
+            </div>
+            
+            <!-- Card 5 - Mamografia -->
+            <div class="procedimento-card" id="mamografia">
+                <div class="card-visual">
+                    <i class="fas fa-female"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Mamografia</h3>
+                    <p>A mamografia é o principal exame de rastreio do câncer de mama, essencial para diagnóstico precoce e tratamento eficaz.</p>
+                    
+                    <div class="card-features">
+                        <h4>Principais Benefícios:</h4>
+                        <ul>
+                            <li>Detecção precoce do câncer de mama</li>
+                            <li>Exame rápido e seguro</li>
+                            <li>Alta precisão diagnóstica</li>
+                            <li>Recomendado anualmente</li>
+                        </ul>
+                    </div>
+                    
+                    <a href="#" class="btn-saiba-mais">Saiba Mais →</a>
+                </div>
+            </div>
+            
+            <!-- Card 6 - Ultrassom -->
+            <div class="procedimento-card" id="ultrassom">
+                <div class="card-visual">
+                    <i class="fas fa-wave-square"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Ultrassom</h3>
+                    <p>Exame de imagem que utiliza ondas sonoras para visualizar órgãos internos e estruturas do corpo.</p>
+                    
+                    <div class="card-features">
+                        <h4>Principais Benefícios:</h4>
+                        <ul>
+                            <li>Não utiliza radiação</li>
+                            <li>Exame seguro e indolor</li>
+                            <li>Resultados em tempo real</li>
+                            <li>Ampla variedade de aplicações</li>
+                        </ul>
+                    </div>
+                    
+                    <a href="#" class="btn-saiba-mais">Saiba Mais →</a>
+                </div>
+            </div>
+            
+            <!-- Card 7 - Ressonância Magnética -->
+            <div class="procedimento-card" id="ressonancia">
+                <div class="card-visual">
+                    <i class="fas fa-magnet"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Ressonância Magnética</h3>
+                    <p>Exame de imagem que utiliza campos magnéticos para obter imagens detalhadas de órgãos e tecidos.</p>
+                    
+                    <div class="card-features">
+                        <h4>Principais Benefícios:</h4>
+                        <ul>
+                            <li>Imagens de alta resolução</li>
+                            <li>Não utiliza radiação ionizante</li>
+                            <li>Excelente para tecidos moles</li>
+                            <li>Diagnóstico preciso</li>
+                        </ul>
+                    </div>
+                    
+                    <a href="#" class="btn-saiba-mais">Saiba Mais →</a>
+                </div>
+            </div>
+            
+            <!-- Card 8 - Tomografia Computadorizada -->
+            <div class="procedimento-card" id="tomografia">
+                <div class="card-visual">
+                    <i class="fas fa-cube"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Tomografia Computadorizada</h3>
+                    <p>Exame de imagem que combina radiografia com tecnologia computadorizada para criar imagens detalhadas.</p>
+                    
+                    <div class="card-features">
+                        <h4>Principais Benefícios:</h4>
+                        <ul>
+                            <li>Imagens em 3D</li>
+                            <li>Exame rápido</li>
+                            <li>Alta precisão diagnóstica</li>
+                            <li>Ampla aplicação clínica</li>
+                        </ul>
+                    </div>
+                    
+                    <a href="#" class="btn-saiba-mais">Saiba Mais →</a>
+                </div>
+            </div>
+            
+            <!-- Card 9 - Exames Laboratoriais -->
+            <div class="procedimento-card" id="laboratoriais">
+                <div class="card-visual">
+                    <i class="fas fa-flask"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Exames Laboratoriais</h3>
+                    <p>Análises de sangue, urina e outros fluidos corporais para diagnóstico e acompanhamento de diversas condições.</p>
+                    
+                    <div class="card-features">
+                        <h4>Principais Benefícios:</h4>
+                        <ul>
+                            <li>Diagnóstico preciso</li>
+                            <li>Monitoramento de tratamentos</li>
+                            <li>Prevenção de doenças</li>
+                            <li>Resultados rápidos</li>
+                        </ul>
+                    </div>
+                    
+                    <a href="#" class="btn-saiba-mais">Saiba Mais →</a>
+                </div>
+            </div>
+            
+            <!-- Card 10 - Eletrocardiograma (ECG) -->
+            <div class="procedimento-card" id="ecg">
+                <div class="card-visual">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Eletrocardiograma (ECG)</h3>
+                    <p>Exame que registra a atividade elétrica do coração, essencial para diagnóstico de problemas cardíacos.</p>
+                    
+                    <div class="card-features">
+                        <h4>Principais Benefícios:</h4>
+                        <ul>
+                            <li>Exame rápido e indolor</li>
+                            <li>Detecção de arritmias</li>
+                            <li>Avaliação da saúde cardíaca</li>
+                            <li>Resultados imediatos</li>
+                        </ul>
+                    </div>
+                    
+                    <a href="#" class="btn-saiba-mais">Saiba Mais →</a>
+                </div>
             </div>
         </div>
     </section>
@@ -2211,56 +3103,6 @@
                     <div class="autor-info">
                         <h4>Carla Santos</h4>
                         <p>Paciente há 2 anos</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Blog -->
-    <section class="blog section-animate" id="blog">
-        <h2>Nosso Blog</h2>
-        <h3>Informações e Dicas de Saúde</h3>
-        
-        <div class="blog-container">
-            <div class="post-card">
-                <div class="post-imagem">
-                    <i class="fas fa-notes-medical"></i>
-                </div>
-                <div class="post-content">
-                    <h4>Prevenção do Câncer de Mama: Tudo o que você precisa saber</h4>
-                    <p>Descubra os principais métodos de prevenção e diagnóstico precoce do câncer de mama e como a detecção precoce pode salvar vidas.</p>
-                    <div class="post-meta">
-                        <span>15 Out, 2023</span>
-                        <a href="#">Ler mais</a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="post-card">
-                <div class="post-imagem">
-                    <i class="fas fa-baby"></i>
-                </div>
-                <div class="post-content">
-                    <h4>Saúde íntima na menopausa: cuidados essenciais</h4>
-                    <p>Entenda as mudanças no corpo feminino durante a menopausa e os cuidados necessários para manter a saúde e bem-estar nessa fase.</p>
-                    <div class="post-meta">
-                        <span>10 Out, 2023</span>
-                        <a href="#">Ler mais</a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="post-card">
-                <div class="post-imagem">
-                    <i class="fas fa-heart"></i>
-                </div>
-                <div class="post-content">
-                    <h4>Alimentação e saúde feminina: o que não pode faltar</h4>
-                    <p>Conheça os alimentos essenciais para manter a saúde da mulher em todas as fases da vida e prevenir doenças ginecológicas.</p>
-                    <div class="post-meta">
-                        <span>5 Out, 2023</span>
-                        <a href="#">Ler mais</a>
                     </div>
                 </div>
             </div>
@@ -2409,178 +3251,11 @@
             observer.observe(section);
         });
 
-  // Dados de cada procedimento
-  const procedimentos = {
-    "Video-Histeroscopia": {
-      titulo: "Video-Histeroscopia",
-      texto: "A histeroscopia por vídeo assistido é um procedimento minimamente invasivo que permite visualizar o útero internamente e realizar cirurgias, se necessário.",
-      link: "#",
-      imagem: "img/histeroscopia.jpg"
-    },
-    "Video-Colposcopia": {
-      titulo: "Video-Colposcopia",
-      texto: "A video-colposcopia permite avaliar o colo do útero e detectar lesões precoces, auxiliando na prevenção do câncer cervical.",
-      link: "#",
-      imagem: "img/colposcopia.jpg"
-    },
-    "DIU Sem Dor": {
-      titulo: "DIU Sem Dor",
-      texto: "Procedimento de colocação de DIU com técnica indolor e rápida, garantindo conforto e segurança para a paciente.",
-      link: "#",
-      imagem: "img/diu.jpg"
-    },
-    "Conização (CAF)": {
-      titulo: "Conização (CAF)",
-      texto: "A conização remove uma pequena parte do colo do útero para análise ou tratamento de lesões.",
-      link: "#",
-      imagem: "img/conizacao.jpg"
-    },
-    "Mamografia": {
-      titulo: "Mamografia",
-      texto: "A mamografia é o principal exame de rastreio do câncer de mama, essencial para diagnóstico precoce e tratamento eficaz.",
-      link: "#",
-      imagem: "img/mamografia.jpg"
-    }
-  };
-  // Seleciona os botões e os elementos do conteúdo
-  const botoes = document.querySelectorAll('.procedimento-btn');
-  const titulo = document.querySelector('.procedimento-info h3');
-  const texto = document.querySelector('.procedimento-info p');
-  const link = document.querySelector('.procedimento-info a');
-  const imagem = document.querySelector('.procedimento-image img');
-
-  // Função para atualizar conteúdo
-  botoes.forEach(botao => {
-    botao.addEventListener('click', () => {
-      botoes.forEach(b => b.classList.remove('active'));
-      botao.classList.add('active');
-
-      const nome = botao.textContent.trim();
-      const dados = procedimentos[nome];
-
-      titulo.textContent = dados.titulo;
-      texto.textContent = dados.texto;
-      link.href = dados.link;
-    });
-  });
-  // animação suave da imagem
-      imagem.style.opacity = 0;
-      setTimeout(() => {
-        imagem.src = dados.imagem;
-        imagem.alt = dados.titulo;
-        imagem.style.opacity = 1;
-      }, 200);
-
-
-        // FAQ Accordion
-        const faqItems = document.querySelectorAll('.faq-item');
-        
-        faqItems.forEach(item => {
-            const pergunta = item.querySelector('.faq-pergunta');
-            
-            pergunta.addEventListener('click', () => {
-                // Fecha todos os outros itens
-                faqItems.forEach(otherItem => {
-                    if (otherItem !== item) {
-                        otherItem.classList.remove('active');
-                    }
-                });
-                
-                // Alterna o item atual
-                item.classList.toggle('active');
-            });
-        });
-
-        // Navegação suave
-        document.querySelectorAll('nav a').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                const targetSection = document.querySelector(targetId);
-                
-                window.scrollTo({
-                    top: targetSection.offsetTop - 80,
-                    behavior: 'smooth'
-                });
-                
-                // Atualiza a navegação ativa
-                document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
-                this.classList.add('active');
-                
-                // Fecha o menu mobile se estiver aberto
-                if (window.innerWidth <= 768) {
-                    document.querySelector('nav ul').classList.remove('active');
-                }
-            });
-        });
-
-        // Menu mobile
-        const menuToggle = document.querySelector('.menu-toggle');
-        const navMenu = document.querySelector('nav ul');
-        
-        menuToggle.addEventListener('click', function() {
-            navMenu.classList.toggle('active');
-        });
-
-        // Efeito hover nas especialidades
-        const especialidadeCards = document.querySelectorAll('.especialidade-card');
-        
-        especialidadeCards.forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-15px) scale(1.03)';
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0) scale(1)';
-            });
-        });
-        // Efeito de scroll no header
-window.addEventListener('scroll', function() {
-    const header = document.getElementById('header');
-    if (window.scrollY > 50) {
-        header.classList.add('scrolled');
-    } else {
-        header.classList.remove('scrolled');
-    }
-});
-        // Função para o chatbot (exemplo básico)
-        document.getElementById('chatbot-toggle').addEventListener('click', function(e) {
-            e.preventDefault();
-            alert('Chatbot será implementado em breve!');
-            // Aqui você pode implementar a lógica para abrir um chatbot real
-            // Efeito de scroll no header
-        window.addEventListener('scroll', function() {
-            const header = document.getElementById('header');
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
-
-        // Animação de entrada das seções
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animated');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.section-animate').forEach(section => {
-            observer.observe(section);
-        });
         // Dados de cada procedimento
         const procedimentos = {
             "Video-Histeroscopia": {
                 titulo: "Video-Histeroscopia",
-                texto: "A histeroscopia por vídeo assistido é um procedimento minimamente invasivo que permite visualizar o útero internamente e realizar cirurgias, se necessário.",
+                texto: "A histeroscopia por vídeo assistido, também conhecida como video-histeroscopia ou histeroscopia cirúrgica, é um procedimento minimamente invasivo que permite a visualização interna do útero e, ao mesmo tempo, a realização de procedimentos cirúrgicos, se necessário.",
                 link: "#"
             },
             "Video-Colposcopia": {
@@ -2673,7 +3348,7 @@ window.addEventListener('scroll', function() {
             });
         });
 
-        // Menu mobile
+        // Menu mobile toggle
         const menuToggle = document.querySelector('.menu-toggle');
         const navMenu = document.querySelector('nav ul');
         
@@ -2682,6 +3357,15 @@ window.addEventListener('scroll', function() {
                 navMenu.classList.toggle('active');
             });
         }
+
+        // Fechar menu ao clicar em um link (mobile)
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function() {
+                if (window.innerWidth <= 768) {
+                    navMenu.classList.remove('active');
+                }
+            });
+        });
 
         // Efeito hover nas especialidades
         const especialidadeCards = document.querySelectorAll('.especialidade-card');
@@ -2695,8 +3379,136 @@ window.addEventListener('scroll', function() {
                 this.style.transform = 'translateY(0) scale(1)';
             });
         });
-        });
+
+        // Carousel Functionality - EFEITO SLIDE LATERAL CORRIGIDO
+document.addEventListener('DOMContentLoaded', function() {
+    const slidesContainer = document.querySelector('.carousel-slides');
+    const slides = document.querySelectorAll('.carousel-slide');
+    const dots = document.querySelectorAll('.carousel-dot');
+    const prevBtn = document.querySelector('.carousel-prev');
+    const nextBtn = document.querySelector('.carousel-next');
+    let currentSlide = 0;
+    let slideInterval;
+    const totalSlides = slides.length;
+
+    console.log('Total de slides encontrados:', totalSlides);
+
+    // Função para atualizar a posição do carousel
+    function updateCarousel() {
+        const translateX = -currentSlide * 100;
+        slidesContainer.style.transform = `translateX(${translateX}%)`;
         
+        // Atualiza dots
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentSlide);
+        });
+
+        console.log('Slide atual:', currentSlide);
+    }
+
+    // Próximo slide
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        updateCarousel();
+    }
+
+    // Slide anterior
+    function prevSlide() {
+        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+        updateCarousel();
+    }
+
+    // Inicia autoplay
+    function startAutoPlay() {
+        slideInterval = setInterval(nextSlide, 2800);
+    }
+
+    // Para autoplay
+    function stopAutoPlay() {
+        clearInterval(slideInterval);
+    }
+
+    // Event listeners
+    nextBtn.addEventListener('click', function() {
+        stopAutoPlay();
+        nextSlide();
+        startAutoPlay();
+    });
+
+    prevBtn.addEventListener('click', function() {
+        stopAutoPlay();
+        prevSlide();
+        startAutoPlay();
+    });
+
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', function() {
+            stopAutoPlay();
+            currentSlide = index;
+            updateCarousel();
+            startAutoPlay();
+        });
+    });
+
+    // Pausa autoplay quando o mouse está sobre o carousel
+    slidesContainer.addEventListener('mouseenter', stopAutoPlay);
+    slidesContainer.addEventListener('mouseleave', startAutoPlay);
+
+    // Inicializa o carousel
+    updateCarousel();
+    
+    // Inicia autoplay
+    startAutoPlay();
+
+    console.log('Carousel slide lateral iniciado com sucesso!');
+});
+// Funcionalidade para rolagem horizontal dos botões
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuContainer = document.querySelector('.procedimentos-menu');
+            const prevBtn = document.querySelector('.scroll-btn.prev');
+            const nextBtn = document.querySelector('.scroll-btn.next');
+            
+            if (prevBtn && nextBtn) {
+                prevBtn.addEventListener('click', function() {
+                    menuContainer.scrollBy({
+                        left: -200,
+                        behavior: 'smooth'
+                    });
+                });
+                
+                nextBtn.addEventListener('click', function() {
+                    menuContainer.scrollBy({
+                        left: 200,
+                        behavior: 'smooth'
+                    });
+                });
+            }
+            
+            // Funcionalidade para os botões de procedimentos
+            const procedimentoBtns = document.querySelectorAll('.procedimento-btn');
+            const procedimentoCards = document.querySelectorAll('.procedimento-card');
+
+            procedimentoBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove a classe active de todos os botões
+                    procedimentoBtns.forEach(b => b.classList.remove('active'));
+                    
+                    // Adiciona a classe active ao botão clicado
+                    this.classList.add('active');
+                    
+                    // Obtém o ID do procedimento
+                    const procedimentoId = this.getAttribute('data-procedimento');
+                    
+                    // Esconde todos os cards
+                    procedimentoCards.forEach(card => {
+                        card.classList.remove('active');
+                    });
+                    
+                    // Mostra o card correspondente
+                    document.getElementById(procedimentoId).classList.add('active');
+                });
+            });
+        });
     </script>
 </body>
 </html>
