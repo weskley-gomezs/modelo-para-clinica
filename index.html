@@ -17,6 +17,7 @@
             --rosa-principal: #e91e63;
             --rosa-claro: #f8bbd9;
             --rosa-hover: #ad1457;
+            --rosa-escuro: #c2185b; /* Cor mais escura para os submenus */
             --azul-escuro: #2c3e50;
             --cinza-claro: #f5f5f5;
             --cinza-escuro: #424242;
@@ -38,101 +39,493 @@
         }
 
         /* Header Modernizado */
-        header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 1rem 2rem;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        #header {
+            background-color: #f7e9e6; 
+            max-width: 1300px; 
+            margin: 20px auto;
+            padding: 15px 30px; 
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
             position: fixed;
-            width: 100%;
-            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
             z-index: 1000;
+            width: calc(100% - 40px);
             display: flex;
             justify-content: space-between;
             align-items: center;
+        }
+
+        /* Efeito de elevação ao rolar */
+        #header.scrolled {
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+            margin-top: 10px;
             transition: all 0.3s ease;
         }
 
-        header.scrolled {
-            padding: 0.7rem 2rem;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
-        }
-
         .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: var(--azul-escuro);
             display: flex;
             align-items: center;
+            font-size: 1.5em;
+            font-weight: 300;
+            color: #4a2a2a;
         }
 
         .logo i {
-            margin-right: 10px;
-            color: var(--rosa-principal);
+            color: #9c6e6e;
+            font-size: 1.8em;
+            margin-right: 8px;
         }
 
-        .logo span {
-            color: var(--rosa-principal);
+        /* Navegação (Menu) - CORREÇÕES APLICADAS */
+        nav {
+            flex: 1;
+            display: flex;
+            justify-content: center;
         }
 
         nav ul {
-            display: flex;
             list-style: none;
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: center;
+            gap: 0;
         }
 
         nav ul li {
-            margin-left: 1.5rem;
-            position: relative;
+            position: relative; 
         }
 
+        /* Itens do menu - EFEITO DA LINHA BRANCA */
         nav ul li a {
+            text-transform: uppercase;
             text-decoration: none;
-            color: var(--azul-escuro);
-            font-weight: 500;
-            transition: color 0.3s;
-            padding: 0.5rem 0;
+            color: #4a2a2a;
+            font-family: Arial, sans-serif;
+            font-size: 0.9em;
+            font-weight: bold;
+            padding: 15px 20px;
+            display: block;
+            transition: all 0.3s ease;
             position: relative;
         }
 
-        nav ul li a:after {
+        /* Linha branca suave abaixo do menu ao passar o mouse */
+        nav ul li a::after {
             content: '';
             position: absolute;
+            bottom: 0;
+            left: 50%;
             width: 0;
             height: 2px;
-            bottom: 0;
-            left: 0;
-            background-color: var(--rosa-principal);
-            transition: width 0.3s ease;
+            background: var(--branco);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
         }
 
-        nav ul li a:hover:after,
-        nav ul li a.active:after {
-            width: 100%;
+        nav ul li a:hover::after {
+            width: 80%; /* A linha aparece com 80% da largura do item */
         }
 
+        /* Estilo do item ATIVO e ao passar o mouse */
         nav ul li a:hover,
         nav ul li a.active {
-            color: var(--rosa-principal);
+            color: #c95d73;
         }
 
+        /* Submenu flutuante - CORREÇÕES APLICADAS */
+        .submenu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: none; /* Inicialmente escondido */
+            position: absolute;
+            top: 100%;
+            left: 0;
+            min-width: 200px;
+            background-color: var(--rosa-escuro); /* Background rosa mais escuro */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            z-index: 1000;
+            border-radius: 0 0 8px 8px;
+            overflow: hidden;
+            animation: slideDown 0.3s ease-out; /* Animação de baixo para cima */
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .submenu li {
+            padding: 0;
+            margin: 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .submenu li:last-child {
+            border-bottom: none;
+        }
+
+        .submenu li a {
+            padding: 12px 15px;
+            white-space: nowrap;
+            display: block;
+            color: var(--branco); /* Letras brancas */
+            text-transform: none; 
+            font-weight: normal;
+            transition: all 0.3s ease;
+            font-size: 0.85em;
+        }
+
+        .submenu li a::after {
+            display: none; /* Remove a linha branca dos subitens */
+        }
+
+        .submenu li a:hover {
+            background-color: rgba(255, 255, 255, 0.1); /* Efeito sutil ao passar o mouse */
+            color: var(--branco);
+            padding-left: 20px; /* Pequeno deslocamento para efeito */
+        }
+
+        /* Ação: Mostra o submenu ao passar o mouse */
+        .has-submenu:hover .submenu {
+            display: block;
+        }
+
+        /* Garante que o menu-toggle esteja escondido para desktop */
         .menu-toggle {
             display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--azul-escuro);
         }
 
-        /* Banner Carousel Modernizado */
+        /* Restante do CSS permanece igual */
         .banner-container {
-            margin-top: 80px;
             position: relative;
-            height: 85vh;
+            height: 100vh;
             overflow: hidden;
             background: var(--rosa-gradiente);
             display: flex;
             align-items: center;
             padding: 0 10%;
         }
+
+        .banner-content {
+            max-width: 600px;
+            z-index: 2;
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .banner-content h1 {
+            font-size: 3.5rem;
+            color: var(--azul-escuro);
+            margin-bottom: 2rem;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .banner-content ul {
+            list-style: none;
+            margin-top: 2rem;
+        }
+
+        .banner-content ul li {
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            color: var(--azul-escuro);
+            font-weight: 500;
+            opacity: 0;
+            animation: fadeInRight 0.8s ease forwards;
+        }
+
+        .banner-content ul li:nth-child(1) { animation-delay: 0.5s; }
+        .banner-content ul li:nth-child(2) { animation-delay: 0.7s; }
+        .banner-content ul li:nth-child(3) { animation-delay: 0.9s; }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .banner-content ul li:before {
+            content: "✓";
+            color: var(--rosa-principal);
+            font-weight: bold;
+            margin-right: 15px;
+            font-size: 1.8rem;
+            background: rgba(255, 255, 255, 0.8);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--sombra-suave);
+        }
+
+        .banner-visual {
+            position: absolute;
+            right: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: var(--rosa-gradiente);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--sombra-media);
+            overflow: hidden;
+        }
+
+        .banner-visual:before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 Q50,30 100,0 L100,100 Q50,70 0,100 Z" fill="rgba(255,255,255,0.2)"/></svg>');
+            background-size: cover;
+        }
+
+        .banner-visual i {
+            font-size: 10rem;
+            color: rgba(255, 255, 255, 0.8);
+            z-index: 1;
+        }
+
+        /* Outubro Rosa Banner */
+        .outubro-rosa {
+            background: linear-gradient(135deg, var(--rosa-principal) 0%, #c2185b 100%);
+            color: var(--branco);
+            padding: 5rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* ... (restante do CSS permanece igual) ... */
+
+        /* Responsividade */
+        @media (max-width: 1200px) {
+            .especialidades-container,
+            .equipe-container,
+            .depoimentos-container,
+            .blog-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .banner-visual {
+                width: 400px;
+                height: 400px;
+            }
+            
+            .banner-visual i {
+                font-size: 8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .especialidades-container,
+            .equipe-container,
+            .depoimentos-container,
+            .blog-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .atendimento-prime,
+            .procedimento-content,
+            .contatos-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .banner-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .outubro-rosa h2 {
+                font-size: 2.5rem;
+                letter-spacing: 5px;
+            }
+            
+            .localidades {
+                grid-template-columns: 1fr;
+            }
+            
+            .banner-visual {
+                display: none;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                position: fixed;
+                top: 80px;
+                right: -100%;
+                width: 250px;
+                height: calc(100vh - 80px);
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(10px);
+                transition: right 0.4s ease;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+                padding: 2rem;
+            }
+            
+            nav ul.active {
+                right: 0;
+            }
+            
+            nav ul li {
+                margin: 1rem 0;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+
+            /* Ajustes para mobile */
+            .submenu {
+                position: static;
+                display: none;
+                background-color: rgba(194, 24, 91, 0.9);
+                margin-top: 10px;
+                border-radius: 5px;
+            }
+
+            .has-submenu:hover .submenu,
+            .has-submenu.active .submenu {
+                display: block;
+            }
+        }
+
+        /* Garante que o menu-toggle esteja escondido para desktop */
+        .menu-toggle {
+            display: none;
+        }
+
+        /* Banner Carousel Modernizado - REMOVER MARGIN TOP */
+        .banner-container {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+            background: var(--rosa-gradiente);
+            display: flex;
+            align-items: center;
+            padding: 0 10%;
+        }
+
+        /* ... (restante do CSS permanece igual) ... */
+
+        /* Responsividade Melhorada */
+        @media (max-width: 1200px) {
+            .especialidades-container,
+            .equipe-container,
+            .depoimentos-container,
+            .blog-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .banner-visual {
+                width: 400px;
+                height: 400px;
+            }
+            
+            .banner-visual i {
+                font-size: 8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .especialidades-container,
+            .equipe-container,
+            .depoimentos-container,
+            .blog-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .atendimento-prime,
+            .procedimento-content,
+            .contatos-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .banner-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .outubro-rosa h2 {
+                font-size: 2.5rem;
+                letter-spacing: 5px;
+            }
+            
+            .localidades {
+                grid-template-columns: 1fr;
+            }
+            
+            .banner-visual {
+                display: none;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                position: fixed;
+                top: 80px;
+                right: -100%;
+                width: 250px;
+                height: calc(100vh - 80px);
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(10px);
+                transition: right 0.4s ease;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+                padding: 2rem;
+            }
+            
+            nav ul.active {
+                right: 0;
+            }
+            
+            nav ul li {
+                margin: 1rem 0;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+        }
+
+        /* Banner Carousel Modernizado - REMOVER MARGIN TOP */
+        .banner-container {
+        /* REMOVER: margin-top: 80px; */
+        position: relative;
+        height: 100vh; /* Alterado para 100vh para tomar toda a altura da tela */
+        overflow: hidden;
+        background: var(--rosa-gradiente);
+        display: flex;
+        align-items: center;
+        padding: 0 10%;
+}
 
         .banner-content {
             max-width: 600px;
@@ -1532,19 +1925,76 @@
             <i class="fas fa-heartbeat"></i>
             <div>Clínica</div>
         </div>
-        <div class="menu-toggle">
-            <i class="fas fa-bars"></i>
-        </div>
         <nav>
             <ul>
-                <li><a href="#sobre" class="active">Sobre</a></li>
-                <li><a href="#especialidades">Especialidades</a></li>
-                <li><a href="#procedimentos">Procedimentos</a></li>
-                <li><a href="#equipe">Equipe</a></li>
-                <li><a href="#depoimentos">Depoimentos</a></li>
-                <li><a href="#blog">Blog</a></li>
-                <li><a href="#faq">FAQ</a></li>
-                <li><a href="#contatos">Contatos</a></li>
+                <li class="has-submenu">
+                    <a href="#">A CLÍNICA</a>
+                    <ul class="submenu">
+                        <li><a href="#">Corpo Clínico</a></li>
+                        <li><a href="#">Quem somos</a></li>
+                    </ul>
+                </li>
+                <li class="has-submenu">
+                    <a href="#">CONSULTAS</a>
+                    <ul class="submenu">
+                        <li><a href="#">Ginecologia Cirúrgica</a></li>
+                        <li><a href="#">Ginecologia Clínica</a></li>
+                        <li><a href="#">Mastologia Geral</a></li>
+                    </ul>
+                </li>
+                <li class="has-submenu">
+                    <a href="#">EXAMES</a>
+                    <ul class="submenu">
+                        <li><a href="#">Raio-X</a></li>
+                        <li><a href="#">Ultrassonografia</a></li>
+                        <li><a href="#">Ressonância Magnética</a></li>
+                        <li><a href="#">Tomografia Computadorizada</a></li>
+                        <li><a href="#">Exames Laboratoriais</a></li>
+                        <li><a href="#">Eletrocardiograma (ECG)</a></li>
+                        <li><a href="#">Endoscopia</a></li>
+                    </ul>
+                </li>
+                <li class="has-submenu">
+                    <a href="#">PROCEDIMENTOS</a>
+                    <ul class="submenu">
+                        <li><a href="#">Acompanhamento Nutricional</a></li>
+                        <li><a href="#">Fisioterapia e Reabilitação</a></li>
+                        <li><a href="#">Vacinação</a></li>
+                        <li><a href="#">Testes de Alergia</a></li>
+                        <li><a href="#">Pequenas Suturas</a></li>
+                        <li><a href="#">Retirada de Pontos</a></li>
+                        <li><a href="#">Curativos Complexos</a></li>
+                    </ul>
+                </li>
+                <li class="has-submenu">
+                    <a href="#">TRATAMENTOS</a>
+                    <ul class="submenu">
+                        <li><a href="#">Terapia da Dor Crônica</a></li>
+                        <li><a href="#">Tratamento para Diabetes</a></li>
+                        <li><a href="#">Reabilitação Cardíaca</a></li>
+                        <li><a href="#">Acompanhamento Psicológico</a></li>
+                        <li><a href="#">Tratamento para Obesidade</a></li>
+                        <li><a href="#">Injeções Articulares</a></li>
+                    </ul>
+                </li>
+                <li class="has-submenu">
+                    <a href="#">ESTÉTICA INTIMA</a>
+                    <ul class="submenu">
+                        <li><a href="#">Laser Íntimo</a></li>
+                        <li><a href="#">Preenchimento Labial</a></li>
+                        <li><a href="#">Clareamento Íntimo</a></li>
+                        <li><a href="#">Peeling na Região</a></li>
+                        <li><a href="#">Rejuvenescimento Vaginal</a></li>
+                        <li><a href="#">Tratamento para Incontinência</a></li>
+                    </ul>
+                </li>
+                <li class="has-submenu">
+                    <a href="#">CONTATO</a>
+                    <ul class="submenu">
+                        <li><a href="#">WHATSAPP</a></li>
+                        <li><a href="#">Ligar Agora</a></li>
+                    </ul>
+                </li>
             </ul>
         </nav>
     </header>
@@ -2085,12 +2535,168 @@
                 this.style.transform = 'translateY(0) scale(1)';
             });
         });
+        // Efeito de scroll no header
+window.addEventListener('scroll', function() {
+    const header = document.getElementById('header');
+    if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+    } else {
+        header.classList.remove('scrolled');
+    }
+});
         // Função para o chatbot (exemplo básico)
         document.getElementById('chatbot-toggle').addEventListener('click', function(e) {
             e.preventDefault();
             alert('Chatbot será implementado em breve!');
             // Aqui você pode implementar a lógica para abrir um chatbot real
+            // Efeito de scroll no header
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
         });
+
+        // Animação de entrada das seções
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section-animate').forEach(section => {
+            observer.observe(section);
+        });
+        // Dados de cada procedimento
+        const procedimentos = {
+            "Video-Histeroscopia": {
+                titulo: "Video-Histeroscopia",
+                texto: "A histeroscopia por vídeo assistido é um procedimento minimamente invasivo que permite visualizar o útero internamente e realizar cirurgias, se necessário.",
+                link: "#"
+            },
+            "Video-Colposcopia": {
+                titulo: "Video-Colposcopia",
+                texto: "A video-colposcopia permite avaliar o colo do útero e detectar lesões precoces, auxiliando na prevenção do câncer cervical.",
+                link: "#"
+            },
+            "DIU Sem Dor": {
+                titulo: "DIU Sem Dor",
+                texto: "Procedimento de colocação de DIU com técnica indolor e rápida, garantindo conforto e segurança para a paciente.",
+                link: "#"
+            },
+            "Conização (CAF)": {
+                titulo: "Conização (CAF)",
+                texto: "A conização remove uma pequena parte do colo do útero para análise ou tratamento de lesões.",
+                link: "#"
+            },
+            "Mamografia": {
+                titulo: "Mamografia",
+                texto: "A mamografia é o principal exame de rastreio do câncer de mama, essencial para diagnóstico precoce e tratamento eficaz.",
+                link: "#"
+            }
+        };
+
+        // Seleciona os botões e os elementos do conteúdo
+        const botoes = document.querySelectorAll('.procedimento-btn');
+        const titulo = document.querySelector('.procedimento-info h3');
+        const texto = document.querySelector('.procedimento-info p');
+        const link = document.querySelector('.procedimento-info a');
+
+        // Função para atualizar conteúdo
+        botoes.forEach(botao => {
+            botao.addEventListener('click', () => {
+                botoes.forEach(b => b.classList.remove('active'));
+                botao.classList.add('active');
+
+                const nome = botao.textContent.trim();
+                const dados = procedimentos[nome];
+
+                titulo.textContent = dados.titulo;
+                texto.textContent = dados.texto;
+                link.href = dados.link;
+            });
+        });
+
+        // FAQ Accordion
+        const faqItems = document.querySelectorAll('.faq-item');
+        
+        faqItems.forEach(item => {
+            const pergunta = item.querySelector('.faq-pergunta');
+            
+            pergunta.addEventListener('click', () => {
+                // Fecha todos os outros itens
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+                
+                // Alterna o item atual
+                item.classList.toggle('active');
+            });
+        });
+
+        // Navegação suave
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId.startsWith('#')) {
+                    const targetSection = document.querySelector(targetId);
+                    
+                    if (targetSection) {
+                        window.scrollTo({
+                            top: targetSection.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+                
+                // Atualiza a navegação ativa
+                document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Fecha o menu mobile se estiver aberto
+                if (window.innerWidth <= 768) {
+                    document.querySelector('nav ul').classList.remove('active');
+                }
+            });
+        });
+
+        // Menu mobile
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navMenu = document.querySelector('nav ul');
+        
+        if (menuToggle) {
+            menuToggle.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+            });
+        }
+
+        // Efeito hover nas especialidades
+        const especialidadeCards = document.querySelectorAll('.especialidade-card');
+        
+        especialidadeCards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-15px) scale(1.03)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+        });
+        
     </script>
 </body>
 </html>
